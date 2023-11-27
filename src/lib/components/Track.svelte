@@ -1,5 +1,5 @@
 <script lang="ts">
-	import { playTrack } from '$lib/auth';
+	import { playTrack } from '$lib/api';
 
 	export let track: SpotifyApi.TrackObjectFull;
 </script>

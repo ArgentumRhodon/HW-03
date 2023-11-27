@@ -4,5 +4,6 @@ import PlayerBar from './components/PlayerBar.svelte';
 import Tracklist from './components/Tracklist.svelte';
 import Track from './components/Track.svelte';
 import * as auth from './auth';
+import * as api from './api';
 
-export { Navbar, PlayerBar, Tracklist, Track, auth };
+export { Navbar, PlayerBar, Tracklist, Track, auth, api };

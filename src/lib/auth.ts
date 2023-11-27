@@ -1,5 +1,6 @@
 import type { ModalSettings, ModalStore } from '@skeletonlabs/skeleton';
 import { writable } from 'svelte/store';
+import { getTopTracks, getUserProfile } from './api';
 const clientId = '8b1d3899524e4680b809acc792c5a349';
 let code: string | null;
 
@@ -73,50 +74,6 @@ const getAccessToken = async (code: string): Promise<string> => {
 	return access_token;
 };
 
-// API Request Methods -----------------------------------------------------------------
-const makePostRequest = async (endpoint: string): Promise<any> => {
-	const access_token = await requestToken();
-
-	const result = await fetch('https://api.spotify.com/v1/' + endpoint, {
-		method: 'POST',
-		headers: { Authorization: `Bearer ${access_token}` }
-	});
-
-	return await result;
-};
-
-const addToQueue = async (uri: string): Promise<SpotifyApi.AddToQueueResponse> => {
-	return makePostRequest(`me/player/queue?uri=${uri}`);
-};
-
-const skipToNext = async () => {
-	return makePostRequest('me/player/next');
-};
-
-const playTrack = async (uri: string) => {
-	addToQueue(uri).then(skipToNext);
-};
-
-const makeGetRequest = async (endpoint: string): Promise<any> => {
-	const access_token = await requestToken();
-
-	const result = await fetch('https://api.spotify.com/v1/' + endpoint, {
-		method: 'GET',
-		headers: { Authorization: `Bearer ${access_token}` }
-	});
-
-	return await result.json();
-};
-
-const getUserProfile = async (): Promise<SpotifyApi.UserObjectPublic> => {
-	return makeGetRequest('me');
-};
-
-const getTopTracks = async (): Promise<SpotifyApi.UsersTopTracksResponse> => {
-	return makeGetRequest('me/top/tracks');
-};
-// End API Request Methods --------------------------------------------------------------
-
 // Updates user information
 const updateUser = async () => {
 	const userProfile: SpotifyApi.UserObjectPublic = await getUserProfile();
@@ -162,4 +119,4 @@ const init = async (modal: ModalSettings, modalStore: ModalStore) => {
 	}
 };
 
-export { init, user, playTrack };
+export { init, user, requestToken };
