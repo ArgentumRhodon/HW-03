@@ -3,7 +3,9 @@
 // and what to do when importing types
 declare namespace App {
 	// interface Locals {}
-	// interface PageData {}
+	interface PageData {
+		user: SpotifyApi.CurrentUsersProfileResponse | null;
+	}
 	// interface Error {}
 	// interface Platform {}
 }
