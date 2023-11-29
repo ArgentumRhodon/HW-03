@@ -4,19 +4,9 @@
 	import { storeTheme } from '$lib/stores/stores';
 	import {
 		LightSwitch,
-		ListBox,
-		ListBoxItem,
 		popup,
-		type PopupSettings
 	} from '@skeletonlabs/skeleton';
 	import type { SubmitFunction } from '@sveltejs/kit';
-
-	// settings for a popup
-	const popupThemeSelect: PopupSettings = {
-		event: 'click',
-		target: 'popupThemeSelect',
-		placement: 'bottom'
-	};
 
 	// Skeleton themes that the app supports
 	const themes = [
@@ -40,6 +30,8 @@
 		if (theme) {
 			document.body.setAttribute('data-theme', theme);
 			$storeTheme = theme;
+
+			console.log("Store: " + storeTheme);
 		}
 	};
 </script>
@@ -81,6 +73,5 @@
 				{/each}
 			</ul>
 		</form>
-		<div class="arrow bg-surface-100-800-token" />
 	</div>
 </div>

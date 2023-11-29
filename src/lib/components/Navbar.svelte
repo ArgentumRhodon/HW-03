@@ -7,20 +7,10 @@
 </script>
 
 <AppBar
-	gridColumns="grid-cols-3"
-	slotDefault="place-self-center"
+	gridColumns="grid-cols-2"
 	slotTrail="place-content-end"
 	shadow="shadow-2xl"
 >
-	<svelte:fragment slot="lead">
-		<nav>
-			<!-- Spotify Vis temp logo -->
-			<a href="/">
-				<i class="fa-solid fa-eye fa-2xl mr-1" style="color: #1DB954" />
-			</a>
-		</nav>
-	</svelte:fragment>
-
 	<svelte:fragment slot="trail">
 		<ThemeSelector />
 

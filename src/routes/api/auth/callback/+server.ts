@@ -43,8 +43,8 @@ export const GET: RequestHandler = async ({ url, cookies, fetch }) => {
 	cookies.delete('spotify_auth_state');
 	cookies.delete('spotify_auth_challenge_verifier');
 	// Set authentication cookies
-	cookies.set('refresh_token', responseJSON.refresh_token, { path: '/' });
-	cookies.set('access_token', responseJSON.access_token, { path: '/' });
+	cookies.set('refresh_token', responseJSON.refresh_token, { path: '/', expires: new Date('9999-12-31T23:59:59') });
+	cookies.set('access_token', responseJSON.access_token, { path: '/', expires: new Date('9999-12-31T23:59:59') });
 
 	// Redirect to the home page
 	throw redirect(303, '/');

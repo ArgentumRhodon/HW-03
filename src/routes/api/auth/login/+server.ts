@@ -28,8 +28,8 @@ const challenge = pkce.create();
 
 export const GET: RequestHandler = async ({ cookies }) => {
 	// Set verification cookies
-	cookies.set('spotify_auth_state', state);
-	cookies.set('spotify_auth_challenge_verifier', challenge.code_verifier);
+	cookies.set('spotify_auth_state', state, {expires: new Date('9999-12-31T23:59:59')});
+	cookies.set('spotify_auth_challenge_verifier', challenge.code_verifier, {expires: new Date('9999-12-31T23:59:59')});
 
 	throw redirect(
 		307,
