@@ -51,7 +51,7 @@ export default {
 					{
 						name: 'crimson',
 						enhancements: true,
-					},
+					}
 				],
 			},
 		}),

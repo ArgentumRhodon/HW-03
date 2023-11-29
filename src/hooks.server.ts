@@ -6,8 +6,6 @@ export const handle: Handle = async ({ event, resolve }) => {
 	// Get stored theme
 	const cookieTheme = event.cookies.get('theme');
 
-	console.log("Cookies: " + cookieTheme);
-
 	// If it exists, set theme
 	if (cookieTheme) {
 		theme = cookieTheme;
