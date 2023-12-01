@@ -1,27 +1,24 @@
 <script lang="ts">
-	import { AppBar, Avatar, type PopupSettings } from '@skeletonlabs/skeleton';
+	import { AppBar, Avatar, filter, type PopupSettings } from '@skeletonlabs/skeleton';
 	export let user: SpotifyApi.CurrentUsersProfileResponse | null;
 	import { enhance } from '$app/forms';
 	import { storeTheme } from '$lib/stores/stores';
-	import {
-		LightSwitch,
-		popup,
-	} from '@skeletonlabs/skeleton';
+	import { LightSwitch, popup } from '@skeletonlabs/skeleton';
 	import type { SubmitFunction } from '@sveltejs/kit';
 	import { invalidateAll } from '$app/navigation';
 
 	// Skeleton themes that the app supports
 	const themes = [
-		{ type: 'skeleton', name: 'Skeleton', icon: '💀' },
-		{ type: 'wintry', name: 'Wintry', icon: '🌨️' },
-		{ type: 'modern', name: 'Modern', icon: '🤖' },
-		{ type: 'rocket', name: 'Rocket', icon: '🚀' },
-		{ type: 'seafoam', name: 'Seafoam', icon: '🧜‍♀️' },
-		{ type: 'vintage', name: 'Vintage', icon: '📺' },
-		{ type: 'sahara', name: 'Sahara', icon: '🏜️' },
-		{ type: 'hamlindigo', name: 'Hamlindigo', icon: '👔' },
-		{ type: 'gold-nouveau', name: 'Gold Nouveau', icon: '💫' },
-		{ type: 'crimson', name: 'Crimson', icon: '⭕' }
+		{ type: 'skeleton', name: 'Skeleton', icon: '💀', filter: '' },
+		{ type: 'wintry', name: 'Wintry', icon: '🌨️', filter: '#Snowfall' },
+		{ type: 'modern', name: 'Modern', icon: '🤖', filter: '#BlueNight' },
+		{ type: 'rocket', name: 'Rocket', icon: '🚀', filter: '' },
+		{ type: 'seafoam', name: 'Seafoam', icon: '🧜‍♀️', filter: '#Emerald' },
+		{ type: 'vintage', name: 'Vintage', icon: '📺', filter: '#Rustic' },
+		{ type: 'sahara', name: 'Sahara', icon: '🏜️', filter: '#XPro' },
+		{ type: 'hamlindigo', name: 'Hamlindigo', icon: '👔', filter: '#NoirLight' },
+		{ type: 'gold-nouveau', name: 'Gold Nouveau', icon: '💫', filter: '#NewGroove' },
+		{ type: 'crimson', name: 'Crimson', icon: '⭕', filter: '#Summer84' }
 	];
 
 	const setTheme: SubmitFunction = ({ formData }) => {
@@ -32,36 +29,29 @@
 			$storeTheme = theme;
 		}
 	};
-	
+
 	const popupTheme: PopupSettings = {
-		event: 'click', 
-		target: 'theme', 
+		event: 'click',
+		target: 'theme',
 		closeQuery: 'a[href]',
-		middleware: {offset: 24} 
-	}
+		middleware: { offset: 24 }
+	};
 
 	const popupProfile: PopupSettings = {
-		event: 'click', 
-		target: 'profile', 
+		event: 'click',
+		target: 'profile',
 		closeQuery: 'a[href]',
-		middleware: {offset: 32} 
-	}
+		middleware: { offset: 32 }
+	};
 </script>
 
-<AppBar
-	gridColumns="grid-cols-2"
-	slotTrail="place-content-end"
-	shadow="shadow-2xl"
->
+<AppBar gridColumns="grid-cols-2" slotTrail="place-content-end" shadow="shadow-2xl">
 	<!-- [Spotify Vis Logo] -->
 
 	<svelte:fragment slot="trail">
 		<div>
 			<!-- Trigger -->
-			<button
-				class="btn hover:variant-soft-primary"
-				use:popup={popupTheme}
-			>
+			<button class="btn hover:variant-soft-primary" use:popup={popupTheme}>
 				<span class="capitalize">{$storeTheme}</span>
 				<i class="fa-solid fa-caret-down" />
 			</button>
@@ -100,16 +90,15 @@
 		{#if user}
 			<div>
 				<!-- Trigger -->
-				<button
-					class="btn p-0"
-					use:popup={popupProfile}
-				>
+				<button class="btn p-0" use:popup={popupProfile}>
 					<Avatar
 						src={user.images?.length ? user.images[1].url : '/pfp.svg'}
 						width="w-8"
 						rounded="rounded-token"
+						action={filter}
+						actionParams={themes.find((theme) => theme.type === $storeTheme)?.filter}
 					/>
-					<h2 class="hidden h2 text-2xl ml-2">{user.display_name}</h2>
+					<i class="fa-solid fa-caret-down" />
 				</button>
 
 				<!-- Popup -->
@@ -117,9 +106,9 @@
 					<nav class="list-nav px-4 -mx-4 space-y-4">
 						<a class="btn variant-filled-primary flex justify-between" href={user.uri}>
 							Open Spotify
-							<i class="fa-solid fa-arrow-up-right-from-square"></i>
+							<i class="fa-solid fa-arrow-up-right-from-square" />
 						</a>
-						<hr>
+						<hr />
 						<!-- Logout Button | Works with and without JS -->
 						<form
 							method="POST"
@@ -138,7 +127,7 @@
 						>
 							<button type="submit" class="btn variant-filled-error w-full flex justify-between">
 								Logout
-								<i class="fa-solid fa-arrow-right-from-bracket"></i>
+								<i class="fa-solid fa-arrow-right-from-bracket" />
 							</button>
 						</form>
 					</nav>

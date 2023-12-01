@@ -30,11 +30,19 @@
 /* seafoam theme */
 @font-face {
 	font-family: 'Playfair Display';
-	src: url('/fonts/PlayfairDisplay-Italic.ttf');
+	src: url('/fonts/PlayfairDisplay.ttf');
 	font-display: swap;
 }
 
 html,
 body {
 	@apply h-full overflow-hidden;
+}
+
+.gradient-heading {
+	@apply bg-clip-text text-transparent box-decoration-clone;
+	/* Direction */
+	@apply bg-gradient-to-br;
+	/* Color Stops */
+	@apply from-primary-500 via-tertiary-500 to-secondary-500;
 }

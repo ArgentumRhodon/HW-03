@@ -1,5 +1,16 @@
 <script lang="ts">
-	import { AppShell } from '@skeletonlabs/skeleton';
+	import {
+		AppShell,
+		BlueNight,
+		Summer84,
+		Emerald,
+		NoirLight,
+		XPro,
+		Rustic,
+		Apollo
+	} from '@skeletonlabs/skeleton';
+	import Snowfall from '$lib/components/Snowfall.svelte';
+	import NewGroove from '$lib/components/NewGroove.svelte';
 	import AppBar from '$lib/components/AppBar.svelte';
 	import '../app.postcss';
 
@@ -13,6 +24,15 @@
 	export let data: LayoutData;
 </script>
 
+<BlueNight />
+<Summer84 />
+<Emerald />
+<NoirLight />
+<XPro />
+<Rustic />
+<Apollo />
+<Snowfall />
+<NewGroove />
 <AppShell>
 	<svelte:fragment slot="header">
 		<AppBar user={data.user} />
