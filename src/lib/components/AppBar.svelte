@@ -9,10 +9,10 @@
 
 	// Skeleton themes that the app supports
 	const themes = [
-		{ type: 'skeleton', name: 'Skeleton', icon: '💀', filter: '' },
+		{ type: 'skeleton', name: 'Skeleton', icon: '💀', filter: '#SkeleTime' },
 		{ type: 'wintry', name: 'Wintry', icon: '🌨️', filter: '#Snowfall' },
 		{ type: 'modern', name: 'Modern', icon: '🤖', filter: '#BlueNight' },
-		{ type: 'rocket', name: 'Rocket', icon: '🚀', filter: '' },
+		{ type: 'rocket', name: 'Rocket', icon: '🚀', filter: '#RocketMan' },
 		{ type: 'seafoam', name: 'Seafoam', icon: '🧜‍♀️', filter: '#Emerald' },
 		{ type: 'vintage', name: 'Vintage', icon: '📺', filter: '#Rustic' },
 		{ type: 'sahara', name: 'Sahara', icon: '🏜️', filter: '#XPro' },
