@@ -34,6 +34,7 @@
 		event: 'click',
 		target: 'theme',
 		closeQuery: 'a[href]',
+		placement: 'bottom-end',
 		middleware: { offset: 24 }
 	};
 
@@ -41,8 +42,12 @@
 		event: 'click',
 		target: 'profile',
 		closeQuery: 'a[href]',
+		placement: 'bottom-end',
 		middleware: { offset: 32 }
 	};
+
+	// Reactive variables
+	$: pfpFilter = themes.find((theme) => theme.type === $storeTheme)?.filter;
 </script>
 
 <AppBar gridColumns="grid-cols-2" slotTrail="place-content-end" shadow="shadow-2xl">
@@ -96,7 +101,7 @@
 						width="w-8"
 						rounded="rounded-token"
 						action={filter}
-						actionParams={themes.find((theme) => theme.type === $storeTheme)?.filter}
+						actionParams={pfpFilter}
 					/>
 					<i class="fa-solid fa-caret-down" />
 				</button>
