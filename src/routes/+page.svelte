@@ -2,5 +2,5 @@
 </script>
 
 <svelte:head>
-	<title>SpotifyVis</title>
+	<title>SpotifyDash</title>
 </svelte:head>
