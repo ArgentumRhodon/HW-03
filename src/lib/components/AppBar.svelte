@@ -69,8 +69,13 @@
 					<LightSwitch />
 				</div>
 				<hr />
-				<form class="max-h-64 lg:max-h-[500px] overflow-y-auto" action="/?/setTheme" method="POST" use:enhance={setTheme}>
-					<ul class="space-y-1">
+				<form
+					class="max-h-64 lg:max-h-[500px] overflow-y-auto"
+					action="/?/setTheme"
+					method="POST"
+					use:enhance={setTheme}
+				>
+					<ul class="space-y-1 list-nav">
 						{#each themes as { type, icon }}
 							<li>
 								<button
