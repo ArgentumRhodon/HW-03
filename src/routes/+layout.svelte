@@ -1,43 +1,23 @@
 <script lang="ts">
-	import {
-		AppShell,
-		storePopup,
-		initializeStores,
-		Modal,
-		getModalStore,
-		type ModalSettings
-	} from '@skeletonlabs/skeleton';
-	import { Navbar, auth } from '$lib';
-	import { computePosition, autoUpdate, offset, shift, flip, arrow } from '@floating-ui/dom';
-	import { onMount } from 'svelte';
+	import { AppShell } from '@skeletonlabs/skeleton';
+	import Filters from '$lib/components/Filters.svelte';
+	import AppBar from '$lib/components/AppBar.svelte';
 	import '../app.postcss';
 
+	// Popup imports
+	import { computePosition, autoUpdate, offset, shift, flip, arrow } from '@floating-ui/dom';
+	import { storePopup } from '@skeletonlabs/skeleton';
+	import type { LayoutData } from './$types';
+	// Popup setup code
 	storePopup.set({ computePosition, autoUpdate, offset, shift, flip, arrow });
-	initializeStores();
 
-	// Initialize the modal store and information
-	const modalStore = getModalStore();
-	const modal: ModalSettings = {
-		type: 'confirm',
-		// Data
-		title: 'Spotify Required',
-		body: 'In order to use this application, you must sign in to Spotify. Do you wish to proceed?',
-		buttonTextConfirm: 'Yes, Sign in',
-		buttonTextCancel: 'No'
-		// response: (r: boolean) => resolve(r)
-	};
-
-	onMount(() => {
-		// Pass the modal info to the auth code
-		auth.init(modal, modalStore);
-	});
+	export let data: LayoutData;
 </script>
 
-<Modal />
-
+<Filters />
 <AppShell>
 	<svelte:fragment slot="header">
-		<Navbar />
+		<AppBar user={data.user} />
 	</svelte:fragment>
 	<!-- (sidebarLeft) -->
 	<!-- (sidebarRight) -->
