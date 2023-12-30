@@ -3,7 +3,7 @@ import type { LayoutLoad } from './$types';
 
 // Client code is needed to determine which pages the user can be on depending
 // on auth state
-export const load = (async ({ data, url }) => {
+export const load: LayoutLoad = async ({ data, url }) => {
 	const { user } = data || {};
 	// If logged in a on the login page, redirect home
 	if (user && url.pathname === '/login') {
@@ -18,4 +18,4 @@ export const load = (async ({ data, url }) => {
 	return {
 		user
 	};
-}) satisfies LayoutLoad;
+};

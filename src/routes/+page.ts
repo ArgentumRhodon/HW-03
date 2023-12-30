@@ -1,9 +1,33 @@
-import { error } from '@sveltejs/kit';
 import type { PageLoad } from './$types';
+import { fetchRefresh } from '$helpers';
 
-export const load: PageLoad = async ({ fetch }) => {
-	const res = await fetch('/api/spotify/browse/new-releases?limit=6');
-	const res2 = await fetch('/api/spotify/browse/featured-playlists?limit=6');
+export const load: PageLoad = async ({ fetch: _fetch, parent }) => {
+	const { user } = await parent();
 
-	console.log(await res.json(), await res2.json());
+	const fetch = (path: string) => fetchRefresh(_fetch, path);
+
+	const newReleases = fetch('/api/spotify/browse/new-releases?limit=6');
+	const featuredPlaylists = fetch('/api/spotify/browse/featured-playlists?limit=6');
+	const userPlaylists = fetch(`api/spotify/users/${user?.id}/playlists?limit=6`);
+
+	// Await all promises simultaneously to avoid chaining promises
+	const [newReleasesRes, featuredPlaylistsRes, userPlaylistsRes] = await Promise.all([
+		newReleases,
+		featuredPlaylists,
+		userPlaylists
+	]);
+
+	// Returning them as individual components allows for the rest of the app to still function
+	// if support for any given endpoint is terminated
+	return {
+		newReleases: newReleasesRes.ok
+			? (newReleasesRes.json() as Promise<SpotifyApi.ListOfNewReleasesResponse>)
+			: undefined,
+		featuredPlaylists: featuredPlaylistsRes.ok
+			? (featuredPlaylistsRes.json() as Promise<SpotifyApi.ListOfFeaturedPlaylistsResponse>)
+			: undefined,
+		userPlaylists: userPlaylistsRes.ok
+			? (userPlaylistsRes.json() as Promise<SpotifyApi.ListOfUsersPlaylistsResponse>)
+			: undefined
+	};
 };

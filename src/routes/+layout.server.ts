@@ -1,7 +1,7 @@
 import { redirect } from '@sveltejs/kit';
 import type { LayoutServerLoad } from './$types';
 
-export const load = (async ({ cookies, fetch, url }) => {
+export const load: LayoutServerLoad = async ({ cookies, fetch, url }) => {
 	const access_token = cookies.get('access_token');
 	const refresh_token = cookies.get('refresh_token');
 
@@ -42,4 +42,4 @@ export const load = (async ({ cookies, fetch, url }) => {
 			user: null
 		};
 	}
-}) satisfies LayoutServerLoad;
+};
