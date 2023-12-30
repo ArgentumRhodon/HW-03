@@ -27,7 +27,7 @@ export default async function fetchRefresh(
 		if (!refreshResponse.ok) {
 			throw error(401, 'Session Expired');
 		}
-		// store promise in window (global)
+
 		return fetch(path);
 	} else {
 		return response;
