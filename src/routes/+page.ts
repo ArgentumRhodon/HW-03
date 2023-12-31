@@ -1,14 +1,16 @@
 import type { PageLoad } from './$types';
 import { fetchRefresh } from '$helpers';
 
+const numItems = 8;
+
 export const load: PageLoad = async ({ fetch: _fetch, parent }) => {
 	const { user } = await parent();
 
 	const fetch = (path: string) => fetchRefresh(_fetch, path);
 
-	const newReleases = fetch('/api/spotify/browse/new-releases?limit=6');
-	const featuredPlaylists = fetch('/api/spotify/browse/featured-playlists?limit=6');
-	const userPlaylists = fetch(`api/spotify/users/${user?.id}/playlists?limit=6`);
+	const newReleases = fetch(`/api/spotify/browse/new-releases?limit=${numItems}`);
+	const featuredPlaylists = fetch(`/api/spotify/browse/featured-playlists?limit=${numItems}`);
+	const userPlaylists = fetch(`api/spotify/users/${user?.id}/playlists?limit=${numItems}`);
 
 	// Await all promises simultaneously to avoid chaining promises
 	const [newReleasesRes, featuredPlaylistsRes, userPlaylistsRes] = await Promise.all([

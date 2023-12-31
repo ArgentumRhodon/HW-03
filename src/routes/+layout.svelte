@@ -15,7 +15,7 @@
 </script>
 
 <Filters />
-<AppShell>
+<AppShell slotPageContent="p-4">
 	<svelte:fragment slot="header">
 		<AppBar user={data.user} />
 	</svelte:fragment>
