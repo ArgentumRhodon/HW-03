@@ -1,5 +1,6 @@
 <script lang="ts">
 	import type { PageData } from './$types';
+	import Card from '$lib/components/Card.svelte';
 
 	export let data: PageData;
 
@@ -43,18 +44,9 @@
 	{#each sections as section}
 		<section>
 			<h1 class="h3 mb-2">{section.title}</h1>
-			<div class="grid grid-cols-8 gap-4">
+			<div class="grid grid-cols-3 md:grid-cols-5 xl:grid-cols-8 gap-4">
 				{#each section.items as item}
-					<a class="card" href="">
-						<img
-							class="rounded-tl-container-token rounded-tr-container-token"
-							src={item.images[0].url}
-							alt=""
-						/>
-						<section class="p-4">
-							<h2 class="h5">{item.name}</h2>
-						</section>
-					</a>
+					<Card {item} />
 				{/each}
 			</div>
 		</section>
