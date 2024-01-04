@@ -4,7 +4,7 @@
 	</h1>
 	<div>
 		<a href="api/auth/login" class="btn variant-filled-primary">
-			Login
+			Log in
 			<i class="fa-solid fa-arrow-right-to-bracket ml-2" />
 		</a>
 	</div>

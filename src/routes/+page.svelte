@@ -36,10 +36,6 @@
 	}
 </script>
 
-<svelte:head>
-	<title>SpotifyDash</title>
-</svelte:head>
-
 <div class="space-y-4">
 	{#each sections as section}
 		<section>

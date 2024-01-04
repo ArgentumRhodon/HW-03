@@ -5,6 +5,7 @@ declare namespace App {
 	// interface Locals {}
 	interface PageData {
 		user: SpotifyApi.CurrentUsersProfileResponse | null;
+		title?: string;
 	}
 	// interface Error {}
 	// interface Platform {}
