@@ -9,7 +9,11 @@ export default {
 		join(require.resolve('@skeletonlabs/skeleton'), '../**/*.{html,js,svelte,ts}')
 	],
 	theme: {
-		extend: {}
+		extend: {
+			boxShadow: {
+				focus: '0 0 0 3px hsl(220, 100%, 60%)'
+			}
+		}
 	},
 	plugins: [
 		skeleton({
