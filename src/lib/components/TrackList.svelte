@@ -28,7 +28,11 @@
 			<button
 				on:focus={() => (focusedButtonIndex = index)}
 				on:blur={() => (focusedButtonIndex = undefined)}
-				on:click={() => console.log('clicked')}
+				on:click={(e) => {
+					// Prevents sticky higlighting when playing a song
+					e.currentTarget.blur();
+					console.log('Clicked!');
+				}}
 				class="after:content-[''] after:rounded-container-token after:absolute after:top-0 after:right-0 after:left-0 after:bottom-0 focus-visible:outline-none"
 			>
 				<i

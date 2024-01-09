@@ -13,4 +13,5 @@ declare namespace App {
 
 declare interface Window {
 	refreshPromise: Promise<Response> | null;
+	onSpotifyWebPlaybackSDKReady: () => void;
 }
