@@ -1,9 +1,12 @@
 <script lang="ts">
 	import msToTime from '$helpers/ms-to-time';
+	import EqualAnim from './EqualAnim.svelte';
+	import Player from './Player.svelte';
+
+	let currentlyPlaying: string | null = null;
+	let isPaused = false;
 
 	export let tracks: SpotifyApi.TrackObjectFull[] | SpotifyApi.TrackObjectSimplified[];
-
-	let focusedButtonIndex: number | undefined = undefined;
 </script>
 
 <div class="hidden sm:grid grid-cols-[48px_1fr_48px]">
@@ -14,40 +17,46 @@
 <hr class="my-2" />
 {#each tracks as track, index}
 	<div
-		class="grid grid-cols-1 sm:grid-cols-[48px_1fr_48px] items-center hover:bg-surface-500/25 rounded-container-token group p-4 relative
-		{focusedButtonIndex === index ? 'bg-surface-500/25' : ''}"
+		class="grid grid-cols-1 sm:grid-cols-[48px_1fr_48px] items-center hover:bg-surface-500/25 rounded-container-token group p-4 relative"
+		class:is-current={currentlyPlaying === track.id}
 	>
 		<div class="w-12 flex justify-center">
-			<p
-				class="hidden group-hover:hidden"
-				class:sm:hidden={focusedButtonIndex === index}
-				class:sm:block={focusedButtonIndex !== index}
-			>
-				{index + 1}
-			</p>
-			<button
-				on:focus={() => (focusedButtonIndex = index)}
-				on:blur={() => (focusedButtonIndex = undefined)}
-				on:click={(e) => {
-					// Prevents sticky higlighting when playing a song
-					e.currentTarget.blur();
-					console.log('Clicked!');
+			{#if currentlyPlaying === track.id && !isPaused}
+				<EqualAnim />
+			{:else}
+				<p class="group-hover:hidden current-primary">
+					{index + 1}
+				</p>
+			{/if}
+			<Player
+				{track}
+				on:play={(e) => {
+					currentlyPlaying = e.detail.track.id;
+					isPaused = false;
 				}}
-				class="after:content-[''] after:rounded-container-token after:absolute after:top-0 after:right-0 after:left-0 after:bottom-0 focus-visible:outline-none"
-			>
-				<i
-					class="fa-solid fa-play hidden sm:group-hover:block"
-					class:sm:block={focusedButtonIndex === index}
-					class:sm:hidden={focusedButtonIndex !== index}
-				/>
-			</button>
+				on:pause={(e) => {
+					isPaused = e.detail.track.id === currentlyPlaying;
+				}}
+			/>
 		</div>
 		<div class="w-full">
-			<p class="font-semibold">{track.name}</p>
-			<p class="text-sm text-gray-500 dark:text-gray-400">
+			<p class="font-semibold current-primary">{track.name}</p>
+			<p class="text-sm text-gray-500 dark:text-gray-400 current-white">
 				{track.artists.map((artist) => artist.name).join(', ')}
 			</p>
 		</div>
 		<p class="hidden sm:block">{msToTime(track.duration_ms)}</p>
 	</div>
 {/each}
+
+<style>
+	.is-current {
+		@apply bg-surface-500/25;
+	}
+	.is-current .current-primary {
+		@apply text-primary-500;
+	}
+	.is-current .current-white {
+		@apply text-white;
+	}
+</style>
