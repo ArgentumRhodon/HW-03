@@ -6,6 +6,7 @@
 	import { LightSwitch, popup } from '@skeletonlabs/skeleton';
 	import type { SubmitFunction } from '@sveltejs/kit';
 	import { invalidateAll } from '$app/navigation';
+	import { onMount } from 'svelte';
 
 	// Skeleton themes that the app supports
 	const themes = [
@@ -51,9 +52,9 @@
 </script>
 
 <AppBar gridColumns="grid-cols-2" slotTrail="place-content-end" shadow="shadow-2xl">
-	<!-- [Spotify Vis Logo] -->
-	<a href="/" class="gradient-heading h2 font-bold">SD</a>
-
+	<a href="/" class="flex items-center w-fit">
+		<span class="text-3xl font-semibold">Sashic</span>
+	</a>
 	<svelte:fragment slot="trail">
 		<div>
 			<!-- Trigger -->
