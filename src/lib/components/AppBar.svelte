@@ -52,6 +52,7 @@
 
 <AppBar gridColumns="grid-cols-2" slotTrail="place-content-end" shadow="shadow-2xl">
 	<!-- [Spotify Vis Logo] -->
+	<a href="/" class="gradient-heading h2 font-bold">SD</a>
 
 	<svelte:fragment slot="trail">
 		<div>
