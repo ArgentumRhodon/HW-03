@@ -5,11 +5,7 @@
 </script>
 
 <div class="flex gap-4 flex-col sm:flex-row mb-4">
-	<img
-		class="aspect-square w-full sm:w-64 shadow-lg rounded-container-token"
-		src={imageURL}
-		alt={name}
-	/>
+	<img class="aspect-square w-full sm:w-64 shadow-lg" src={imageURL} alt={name} />
 	<div class="flex flex-col justify-end gap-4">
 		{#if type}
 			<h2 class="h6">

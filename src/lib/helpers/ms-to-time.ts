@@ -6,5 +6,8 @@ export default function msToTime(duration: number) {
 	const paddedMinutes = minutes === 0 ? '00' : minutes;
 	const paddedSeconds = seconds < 10 ? '0' + seconds : seconds;
 
-	return `${hours > 0 ? `${hours}:` : ''}${paddedMinutes}:${paddedSeconds}`;
+	// Returns strings of "x hr x min" or "x min x sec"
+	return `${hours ? `${hours} hr ` : ''}${paddedMinutes} min ${
+		!hours ? `${paddedSeconds} sec` : ''
+	}`;
 }

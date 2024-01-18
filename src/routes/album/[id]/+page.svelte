@@ -1,5 +1,6 @@
 <script lang="ts">
 	import getCopyrightText from '$helpers/copyright-symbol';
+	import msToTime from '$helpers/ms-to-time';
 	import ItemPage from '$lib/components/ItemPage.svelte';
 	import Tracklist from '$lib/components/TrackList.svelte';
 	import type { PageData } from './$types';
@@ -8,6 +9,9 @@
 
 	$: album = data.album;
 	$: dateFormatted = new Date(album.release_date).toLocaleDateString('en', { dateStyle: 'medium' });
+	$: albumLength = msToTime(
+		album.tracks.items.map((item) => item.duration_ms).reduce((a, b) => a + b)
+	);
 </script>
 
 <ItemPage
@@ -16,11 +20,16 @@
 	type={album.album_type}
 >
 	<p slot="meta">
-		<span>{album.artists.map((artist) => artist.name).join(' • ')}</span>
+		<span
+			>{@html album.artists
+				.map((artist) => `<a class="hover:underline" href=${artist.uri}>${artist.name}</a>`)
+				.join(' • ')}</span
+		>
 		<span> • </span>
 		<span title={dateFormatted}>{new Date(album.release_date).getFullYear()}</span>
 		<span> • </span>
-		<span>{`${album.total_tracks} Track${album.total_tracks > 1 ? 's' : ''}`}</span>
+		<span>{`${album.total_tracks} Song${album.total_tracks > 1 ? 's' : ''},`}</span>
+		<span>{albumLength}</span>
 	</p>
 
 	<Tracklist tracks={album.tracks.items} />
